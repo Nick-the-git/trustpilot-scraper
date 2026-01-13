@@ -24,6 +24,7 @@ def scrape_trustpilot_reviews(url, num_pages, min_length=20):
         
         paginated_url = f"{url}?page={page}"
         response = requests.get(paginated_url, headers=headers)
+        response.encoding = 'utf-8'  # FIX 1: Force UTF-8 encoding
         
         if response.status_code != 200:
             continue
@@ -34,11 +35,14 @@ def scrape_trustpilot_reviews(url, num_pages, min_length=20):
         for block in review_blocks:
             text_tag = block.find('p', {'data-service-review-text-typography': 'true'})
             date_tag = block.find('time')
-            rating_tag = block.find('img', alt=True)
             
-            review_text = text_tag.get_text(strip=True) if text_tag else ''
+            # FIX 3: Only match star rating images (alt text contains "Rated")
+            rating_tag = block.find('img', alt=lambda x: x and 'Rated' in x)
+            
+            # FIX 2: Preserve spacing between paragraphs
+            review_text = text_tag.get_text(separator=' ', strip=True) if text_tag else ''
             review_date = date_tag['datetime'] if date_tag and 'datetime' in date_tag.attrs else 'Unknown'
-            star_rating = rating_tag['alt'] if rating_tag and 'alt' in rating_tag.attrs else 'Not found'
+            star_rating = rating_tag['alt'] if rating_tag else 'Not found'
             
             if len(review_text) >= min_length:
                 reviews.append({
