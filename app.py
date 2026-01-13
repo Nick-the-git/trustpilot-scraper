@@ -139,7 +139,7 @@ Focus on accuracy and quality:
         <div class="prompt-box">
             <h2>Analysis Prompt</h2>
             <p>Upload the attached Excel file to your favourite LLM (Claude, ChatGPT, Copilot etc.) along with a prompt to start your analysis. If this is for understanding impact you can use the prompt below as a starting point (feel free to edit). If you have other use cases you regularly use, please let the AI team know and we can include those too. Here's the prompt:</p>
-            <div class="prompt-text">{analysis_prompt}</div>
+            <div class="prompt-text">{analysis_prompt.replace(chr(10), "<br>")}</div>
         </div>
     </div>
 </body>
