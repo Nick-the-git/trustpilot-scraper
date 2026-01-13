@@ -123,7 +123,9 @@ if st.button("Scrape and Email Reviews"):
                 send_email_with_csv(email, csv_content, company_name, len(reviews))
                 st.success(f"✅ Done! {len(reviews)} reviews sent to {email}")
             except Exception as e:
-                st.error(f"Failed to send email: {e}")
+                st.error(f"Failed to send email: {type(e).__name__}: {e}")
+                import traceback
+                st.code(traceback.format_exc())
             
             # Also offer download
             st.download_button(
