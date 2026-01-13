@@ -83,7 +83,9 @@ def send_email_with_xlsx(to_email, xlsx_content, company_name, review_count):
     gmail_address = st.secrets["GMAIL_ADDRESS"]
     gmail_password = st.secrets["GMAIL_APP_PASSWORD"]
     
-    analysis_prompt = """Analyse the attached Trustpilot reviews for the impact of the product on end users.
+    analysis_prompt = """Prompt:
+
+Analyse the attached Trustpilot reviews for the impact of the product on end users.
 
 Impact is defined as a change in an outcome caused by an organization. An impact can be positive or negative, intended or unintended. An outcome is the level of well-being experienced by an individual or group of people, or the condition of the natural environment.
 
@@ -104,10 +106,11 @@ Create a frequency distribution of the rating scores. The x-axis is score and sh
 Create a second frequency distribution on 'impact outcome occurrence'. The x-axis should be different outcome types and the y-axis should include how many of the reviews demonstrate that impact occurring. Include a negative y-axis to count any reviews that mention negative change against that outcome. Give me a table that's structured by the outcome types identified above and, in the cells, include a quote from every review that demonstrates the outcome type.
 
 Focus on accuracy and quality:
-- Throughout this exercise, only give me information you are sure is accurate.
-- Do not synthesize any reviews or numbers. Rely exclusively on information presented in the document.
-- If you are uncertain about any information, clearly state the uncertainty and do not present it as fact.
-- Triple check your work."""
+• Throughout this exercise, only give me information you are sure is accurate.
+• Do not synthesize any reviews or numbers. Rely exclusively on information presented in the document.
+• If you are uncertain about any information, clearly state the uncertainty and do not present it as fact.
+• Triple check your work.
+• Try and find instances that disprove or oppose your view (i.e. the reverse thesis). List what they are and your rationale for not aligning your view with that evidence."""
 
     html_content = f"""<!DOCTYPE html>
 <html>
