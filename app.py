@@ -88,12 +88,12 @@ Format as a clear executive summary."""
         "to": to_email,
         "subject": f"Your Trustpilot Reviews - {company_name}",
         "html": html_content,
-        "attachments": [
-            {
-                "filename": f"trustpilot_reviews_{company_name}.csv",
-                "content": list(csv_content.encode('utf-8'))
-            }
-        ]
+        # "attachments": [
+        #     {
+        #         "filename": f"trustpilot_reviews_{company_name}.csv",
+        #         "content": list(csv_content.encode('utf-8'))
+        #     }
+        # ]
     })
 
 # Scrape button
