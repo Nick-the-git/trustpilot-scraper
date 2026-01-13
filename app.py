@@ -83,7 +83,7 @@ Format as a clear executive summary."""
     <pre style="background: #f5f5f5; padding: 15px; border-radius: 8px; white-space: pre-wrap;">{analysis_prompt}</pre>
     """
     
-    resend.emails.send({
+    resend.Emails.send({
         "from": "Trustpilot Scraper <onboarding@resend.dev>",
         "to": to_email,
         "subject": f"Your Trustpilot Reviews - {company_name}",
