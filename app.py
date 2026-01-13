@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import csv
 import io
 import resend
+import base64
 
 st.title("Trustpilot Review Scraper")
 st.write("Extract reviews from any Trustpilot page and receive them via email.")
@@ -88,12 +89,12 @@ Format as a clear executive summary."""
         "to": to_email,
         "subject": f"Your Trustpilot Reviews - {company_name}",
         "html": html_content,
-        # "attachments": [
-        #     {
-        #         "filename": f"trustpilot_reviews_{company_name}.csv",
-        #         "content": list(csv_content.encode('utf-8'))
-        #     }
-        # ]
+       "attachments": [
+            {
+                "filename": f"trustpilot_reviews_{company_name}.csv",
+                "content": base64.b64encode(csv_content.encode('utf-8')).decode('utf-8')
+            }
+        ]
     })
 
 # Scrape button
